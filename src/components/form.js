@@ -1,14 +1,15 @@
 export default function Form({ onAddActivity }) {
   function handleSubmit(event) {
     event.preventDefault();
-    const formData = new formData(event.target);
+    const formData = new FormData(event.target);
     const data = {
-      name: formData.get("name"),
-      isForGoodWeather: formData.get("checkbox") === "on",
+      name: formData.get("nameActivity"),
+      isforGoodWeather: event.target.elements.checkbox.checked,
+      //isForGoodWeather: formData.get("checkbox") === "on",
     };
     //const data = Object.fromEntries(formData);
     event.target.reset();
-    event.target.elements.name.focus();
+    event.target.elements.nameActivity.focus();
     console.log(data);
   }
   return (
