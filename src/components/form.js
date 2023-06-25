@@ -4,8 +4,7 @@ export default function Form({ onAddActivity }) {
     const formData = new FormData(event.target);
     const data = {
       name: formData.get("nameActivity"),
-      isforGoodWeather: event.target.elements.checkbox.checked,
-      //isForGoodWeather: formData.get("checkbox") === "on",
+      isForGoodWeather: formData.get("checkbox") === "on",
     };
     //const data = Object.fromEntries(formData);
     event.target.reset();
