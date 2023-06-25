@@ -1,0 +1,46 @@
+.List {
+  display: flex;
+  flex-direction: column;
+  justify-content: ;
+  width: 50%;
+  margin: auto;
+}
+
+.List .title {
+  margin-top: 0;
+  color: purple;
+  background-color: aquamarine;
+}
+.List .content {
+  width: 100%;
+  height: 2em;
+  display: flex;
+  border-bottom: 1 px solid #ccc;
+}
+
+.List .text {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  padding: 0 5px;
+  transition: background-color 200ms eaase-in;
+}
+
+.List .text:hover {
+  cursor: pointer;
+  background-color: aquamarine;
+  transition: background-color 200ms eaase-in;
+}
+
+.List.delete {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
+}
+
+.List .delete:hover {
+  cursor: pointer;
+  background-color: red;
+  transition: background-color 200ms eaase-in;
+}

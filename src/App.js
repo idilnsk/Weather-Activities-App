@@ -1,19 +1,41 @@
-import logo from "./logo.svg";
-import "./App.css";
-import Weather from "./components/weather.js";
-import Activities from "./components/activities.js";
+import React, { useState, useEffect } from "react";
+import List from "./components/list";
 import Form from "./components/form";
-import Delete from "./components/delete";
-import filterActivities from "./components/filterActivities";
+import Weather from "./components/weather";
 
-function App() {
+const API_URL = "https://example-apis.vercel.app/api/weather/europe";
+
+export default function App() {
+  const [weather, setWeather] = useState(null);
+  const [activities, setActivities] = useState([]);
+
+  useEffect(() => {
+    console.log("Fetching Weather!")
+    fetchWeather();
+  }, []);
+
+  const fetchWeather = () => {
+    fetch(API_URL)
+      .then((response) => response.json())
+      .then((data) => {setWeather(data);
+         console.log(data);
+        })
+      .catch((error) => console.error("Error fetching weather:", error));
+  };
+
+  const handleNewActivityCallback = (newActivity) => {
+    setActivities([...activities, newActivity]);
+  };
+
+  const handleActivityDeleteCallback = (activities) => {
+    setActivities(activities);
+  };
+
   return (
-    <>
-      <Weather />
-      <Activities />
-      <Form />
-    </>
+    <div>
+      <Weather weather={weather} />
+      <List activities={activities} weather={weather} handleActivityDeleteCallback={handleActivityDeleteCallback} />
+      <Form handleNewActivityCallback={handleNewActivityCallback} />
+    </div>
   );
 }
-
-export default App;
