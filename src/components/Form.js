@@ -1,5 +1,4 @@
 export default function Form({ handleNewActivityCallback }) {
-
   function handleSubmit(event) {
     event.preventDefault();
     const formData = new FormData(event.target);

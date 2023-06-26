@@ -2,24 +2,26 @@ import React, { useState, useEffect } from "react";
 import List from "./components/list";
 import Form from "./components/form";
 import Weather from "./components/weather";
+import useLocalStorage from "use-local-storage";
 
 const API_URL = "https://example-apis.vercel.app/api/weather/europe";
 
 export default function App() {
   const [weather, setWeather] = useState(null);
-  const [activities, setActivities] = useState([]);
+  const [activities, setActivities] = useLocalStorage("activities", []);
 
   useEffect(() => {
-    console.log("Fetching Weather!")
+    console.log("Fetching Weather!");
     fetchWeather();
   }, []);
 
   const fetchWeather = () => {
     fetch(API_URL)
       .then((response) => response.json())
-      .then((data) => {setWeather(data);
-         console.log(data);
-        })
+      .then((data) => {
+        setWeather(data);
+        console.log(data);
+      })
       .catch((error) => console.error("Error fetching weather:", error));
   };
 
@@ -34,7 +36,11 @@ export default function App() {
   return (
     <div>
       <Weather weather={weather} />
-      <List activities={activities} weather={weather} handleActivityDeleteCallback={handleActivityDeleteCallback} />
+      <List
+        activities={activities}
+        weather={weather}
+        handleActivityDeleteCallback={handleActivityDeleteCallback}
+      />
       <Form handleNewActivityCallback={handleNewActivityCallback} />
     </div>
   );
