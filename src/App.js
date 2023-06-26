@@ -2,17 +2,24 @@ import React, { useState, useEffect } from "react";
 import List from "./components/list";
 import Form from "./components/form";
 import Weather from "./components/weather";
-import useLocalStorage from "use-local-storage";
+import "./components/weather.css";
 
 const API_URL = "https://example-apis.vercel.app/api/weather/europe";
 
 export default function App() {
   const [weather, setWeather] = useState(null);
-  const [activities, setActivities] = useLocalStorage("activities", []);
+  const [activities, setActivities] = useState([]);
 
   useEffect(() => {
     console.log("Fetching Weather!");
     fetchWeather();
+    const fetchInterval = 3000;
+
+    const interval = setInterval(fetchWeather, fetchInterval);
+
+    return () => {
+      clearInterval(interval);
+    };
   }, []);
 
   const fetchWeather = () => {
@@ -33,8 +40,11 @@ export default function App() {
     setActivities(activities);
   };
 
+  if (!weather) {
+    return;
+  }
   return (
-    <div>
+    <div className="backgroundClass">
       <Weather weather={weather} />
       <List
         activities={activities}

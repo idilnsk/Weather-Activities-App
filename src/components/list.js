@@ -1,23 +1,30 @@
 import React from "react";
+import "./weather.css"
 
-export default function List({ weather, activities, handleActivityDeleteCallback }) {
-
+export default function List({
+  weather,
+  activities,
+  handleActivityDeleteCallback,
+}) {
   let activitiesForCurrentWeather = activities.filter((element) => {
     return element.isGoodWeather === weather.isGoodWeather;
   });
 
   const handleDelete = (name) => {
-    const updatedActivities = activities.filter((item) => item.name !== name)
+    const updatedActivities = activities.filter((item) => item.name !== name);
     handleActivityDeleteCallback(updatedActivities);
   };
 
   return (
-    <div>
+    <div className="container">
       <h2>Activity List</h2>
       {activitiesForCurrentWeather.length > 0 ? (
         <ul>
           {activitiesForCurrentWeather.map((activity, index) => (
-            <li key={index}>{activity.name} <button onClick={() => handleDelete(activity.name)}>X</button></li>
+            <li key={index}>
+              {activity.name}{" "}
+              <button onClick={() => handleDelete(activity.name)}>X</button>
+            </li>
           ))}
         </ul>
       ) : (
